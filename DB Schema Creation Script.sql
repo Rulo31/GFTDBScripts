@@ -109,6 +109,27 @@ GO
 ALTER DATABASE [GFT] SET QUERY_STORE = OFF
 GO
 
+USE [master]
+GO
+
+/* For security reasons the login is created disabled and with a random password. */
+/****** Object:  Login [gft_sa]    Script Date: 4/4/2018 11:13:02 PM ******/
+CREATE LOGIN [gft_sa] WITH PASSWORD=N'gft.1234', DEFAULT_DATABASE=[GFT], DEFAULT_LANGUAGE=[us_english], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF
+GO
+
+ALTER LOGIN [gft_sa] ENABLE
+GO
+
+USE [GFT]
+GO
+
+/****** Object:  User [gft_sa]    Script Date: 4/4/2018 11:12:27 PM ******/
+CREATE USER [gft_sa] FOR LOGIN [gft_sa] WITH DEFAULT_SCHEMA=[dbo]
+GO
+ALTER ROLE [db_owner] ADD MEMBER [gft_sa]
+GO
+
+
 USE [GFT]
 GO
 
